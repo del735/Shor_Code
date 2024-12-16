@@ -12,6 +12,7 @@ class BitFlipCode(StabilizerCode):
         self.error()
         self.measureSyndrome()
         self.correct()
+        self.decode()
 
         # Grab statevector at output. May be used at other points of circuit.
         self.quantumCircuit.save_statevector()
@@ -21,7 +22,13 @@ class BitFlipCode(StabilizerCode):
         self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[2])
 
     def error(self):
-        self.quantumCircuit.x(self.dataQubits[0])
+        """
+        Bit-flip error on one of the data qubits.
+        TODO: Look into implementing this more creatively.
+        """
+        # self.quantumCircuit.x(self.dataQubits[0])
+        # self.quantumCircuit.x(self.dataQubits[1])
+        self.quantumCircuit.x(self.dataQubits[2])
 
     def measureSyndrome(self):
         self.quantumCircuit.cx(self.dataQubits[0], self.ancillaQubits[0])
@@ -31,9 +38,23 @@ class BitFlipCode(StabilizerCode):
         self.quantumCircuit.measure(self.ancillaQubits, self.classicalBits)
 
     def correct(self):
-        self.quantumCircuit.x(self.dataQubits[0]).c_if(self.classicalBits, 1)
-        self.quantumCircuit.x(self.dataQubits[1]).c_if(self.classicalBits[0], 1)
-        self.quantumCircuit.x(self.dataQubits[2]).c_if(self.classicalBits[1], 1)
-    
+        """
+        TODO: Implement more cleanly.
+        """
+        with self.quantumCircuit.if_test((self.classicalBits[0], 1)):
+            with self.quantumCircuit.if_test((self.classicalBits[1], 1)):
+                self.quantumCircuit.x(self.dataQubits[0])
+        
+        with self.quantumCircuit.if_test((self.classicalBits[0], 1)):
+            with self.quantumCircuit.if_test((self.classicalBits[1], 0)):
+                self.quantumCircuit.x(self.dataQubits[1])
+
+        with self.quantumCircuit.if_test((self.classicalBits[0], 0)):
+            with self.quantumCircuit.if_test((self.classicalBits[1], 1)):
+                self.quantumCircuit.x(self.dataQubits[2])
+
     def decode(self):
+        """
+        TODO: Implement. Not difficult, but make the state-vector representation nicer.
+        """
         pass
