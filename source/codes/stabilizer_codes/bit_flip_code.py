@@ -11,7 +11,7 @@ class BitFlipCode(StabilizerCode):
         self.encode()
         self.error()
         self.measureSyndrome()
-        self.decode()
+        self.correct()
 
         # Grab statevector at output. May be used at other points of circuit.
         self.quantumCircuit.save_statevector()
@@ -30,7 +30,10 @@ class BitFlipCode(StabilizerCode):
         self.quantumCircuit.cx(self.dataQubits[2], self.ancillaQubits[1])
         self.quantumCircuit.measure(self.ancillaQubits, self.classicalBits)
 
-    def decode(self):
+    def correct(self):
         self.quantumCircuit.x(self.dataQubits[0]).c_if(self.classicalBits, 1)
         self.quantumCircuit.x(self.dataQubits[1]).c_if(self.classicalBits[0], 1)
         self.quantumCircuit.x(self.dataQubits[2]).c_if(self.classicalBits[1], 1)
+    
+    def decode(self):
+        pass

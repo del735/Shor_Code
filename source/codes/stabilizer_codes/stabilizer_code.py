@@ -24,5 +24,9 @@ class StabilizerCode(ABC):
         raise NotImplementedError()
 
     @abstractmethod
+    def correct(self):
+        raise NotImplementedError()
+
+    @abstractmethod
     def decode(self):
         raise NotImplementedError()
