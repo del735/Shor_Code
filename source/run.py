@@ -1,4 +1,6 @@
-"""TODO: Add docstrings."""
+"""
+TODO: Add docstrings.
+"""
 
 from codes.stabilizer_codes import bit_flip_code
 import helper
