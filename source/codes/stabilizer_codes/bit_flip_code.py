@@ -27,10 +27,13 @@ class BitFlipCode(StabilizerCode):
         TODO: Look into implementing this more creatively.
         """
         # self.quantumCircuit.x(self.dataQubits[0])
-        self.quantumCircuit.x(self.dataQubits[1])
-        # self.quantumCircuit.x(self.dataQubits[2])
+        # self.quantumCircuit.x(self.dataQubits[1])
+        self.quantumCircuit.x(self.dataQubits[2])
 
     def measureSyndrome(self):
+        """
+        TODO: Use thesis stabilizers for consistency. So use XXI, IXX, instead of XXI, XIX. 
+        """
         self.quantumCircuit.cx(self.dataQubits[0], self.ancillaQubits[0])
         self.quantumCircuit.cx(self.dataQubits[1], self.ancillaQubits[0])
         self.quantumCircuit.cx(self.dataQubits[0], self.ancillaQubits[1])

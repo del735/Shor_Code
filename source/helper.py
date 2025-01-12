@@ -26,7 +26,7 @@ def visualize(quantumCircuit):
     axes.text(
         0.5,
         0.5,
-        f"Vector labels: ${statevectorLabeled}$. Output: ${latexStatevector}$.",
+        f"Vector labels: ${statevectorLabeled}$. \n Output: ${latexStatevector}$.",
         fontsize=12,
         va="center",
         ha="center",
