@@ -12,3 +12,5 @@ represent mathematical expressions in circuits and Matplotlib figures.
 - **Matplotlib** - For visualizing circuits and statevectors.
 ## Further Requirement
 - **LaTeX** - Needed for rendering mathematical expressions.
+## Usage
+Execute `run.py` to start the program.
