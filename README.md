@@ -16,7 +16,7 @@ represent mathematical expressions in circuits and Matplotlib figures.
 Execute `run.py` to start the program.
 
 In `nine_qubit_code_v2.py` (or `nine_qubit_code_v1.py`, depending on use), 
-edit `self.quantumCircuit.z(self.dataQubits[0])` to change the location and
+edit `self.quantumCircuit.x(self.dataQubits[0])` to change the location and
 type of error that occurs. The Shor code corrects single-qubit X, Y, and Z
 errors. The index ranges from 0 to 8, corresponding to data qubits q_0 to q_8,
 respectively.
