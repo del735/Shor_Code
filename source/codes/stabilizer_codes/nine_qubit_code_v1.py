@@ -96,6 +96,8 @@ class ShorCode(StabilizerCode):
     def correct(self):
         """Correction of the error after acquiring the syndrome."""
 
+        # Current SwitchCaseOp does not support cases with multiple-bit conditions, 
+        # such as 'case: a = 1 and b = 0 -> do...' Used 'if_test' instead.
         # Z-error correction.
         with self.quantumCircuit.if_test((self.classicalBits[0], 1)):
             with self.quantumCircuit.if_test((self.classicalBits[1], 0)):

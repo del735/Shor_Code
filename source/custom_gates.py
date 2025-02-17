@@ -59,6 +59,9 @@ def shorCorrection():
     classicalBits = ClassicalRegister(8, "c")
     quantumCircuit = QuantumCircuit(dataQubits, ancillaQubits, classicalBits)
 
+    # SwitchCaseOp does not support cases with multiple-bit conditions, 
+    # such as 'case: a = 1 and b = 0 -> do...' As a workaround, 'c_if' is used
+    # in combination with a switch statement.
     # Z-error correction.
     with quantumCircuit.switch(classicalBits[0]) as case:
         with case(1):
