@@ -1,13 +1,23 @@
-from qiskit import QuantumCircuit
+"""
+Module containing the 9-qubit Shor code. 
+Uncomment self.quantumCircuit.barrier() for improved circuit
+visualization. Barriers will affect runtime for better visuals.
+"""
+
 from codes.stabilizer_codes.stabilizer_code import StabilizerCode
-from custom_gates import shorStabilizers
+
 
 class ShorCode(StabilizerCode):
     def __init__(self):
+        """
+        Class initialization. Walks through error-correction steps
+        to generate the Shor code circuit and output state.
+        """
+
         super().__init__(numDataQubits=9, numAncillaQubits=8, numClassicalBits=8)
 
-        # Example input: |+>.
-        # self.quantumCircuit.h(self.dataQubits[0])
+        # Sets input qubit q_0 to: |1>. Change if desired.
+        self.quantumCircuit.x(self.dataQubits[0])
 
         self.encode()
         self.error()
@@ -15,19 +25,21 @@ class ShorCode(StabilizerCode):
         self.correct()
         self.decode()
 
-        # Grab statevector at output. May be used at other points of circuit.
+        # Grab output statevector.
         self.quantumCircuit.save_statevector()
 
     def encode(self):
-        # Encoding phase-flip code.
+        """Encoding process of the 9-qubit Shor code."""
+
+        # Encoding for phase-flip code.
         self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[3])
         self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[6])
-        
+
         self.quantumCircuit.h(self.dataQubits[0])
         self.quantumCircuit.h(self.dataQubits[3])
         self.quantumCircuit.h(self.dataQubits[6])
 
-        # Bit-flip code blocks.
+        # Encoding for bit-flip code blocks.
         self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[1])
         self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[2])
 
@@ -38,29 +50,28 @@ class ShorCode(StabilizerCode):
         self.quantumCircuit.cx(self.dataQubits[6], self.dataQubits[8])
 
     def error(self):
-        self.quantumCircuit.x(self.dataQubits[8])
-        self.quantumCircuit.barrier()
+        """
+        Represents the error. The Shor code supports correction of
+        single-qubit x, y, and z errors.
+        """
+
+        self.quantumCircuit.z(self.dataQubits[4])
+        # self.quantumCircuit.barrier()
 
     def measureSyndrome(self):
-        
+        """Measurement of stabilizers to generate the error syndrome."""
+
+        # Stabilizer operators.
         # X-stabilizer operators for Z-error detection.
         self.quantumCircuit.h(self.dataQubits)
 
         for i in range(6):
             self.quantumCircuit.cx(self.dataQubits[i], self.ancillaQubits[0])
-        
-        self.quantumCircuit.barrier()
+            self.quantumCircuit.cx(self.dataQubits[i + 3], self.ancillaQubits[1])
 
-        for i in range(6):
-            self.quantumCircuit.cx(self.dataQubits[i+3], self.ancillaQubits[1])
-        
-        self.quantumCircuit.barrier()
-        
         self.quantumCircuit.h(self.dataQubits)
 
-        self.quantumCircuit.barrier()
-
-        # Z-stabilizer operators for X-error detection.
+        # Z-stabilizer operators for X-error detection. Hard-coded for clarity.
         self.quantumCircuit.cx(self.dataQubits[0], self.ancillaQubits[2])
         self.quantumCircuit.cx(self.dataQubits[1], self.ancillaQubits[2])
 
@@ -79,19 +90,17 @@ class ShorCode(StabilizerCode):
         self.quantumCircuit.cx(self.dataQubits[7], self.ancillaQubits[7])
         self.quantumCircuit.cx(self.dataQubits[8], self.ancillaQubits[7])
 
-        self.quantumCircuit.barrier()
-
         # Measurement.
         self.quantumCircuit.measure(self.ancillaQubits, self.classicalBits)
 
     def correct(self):
-        self.quantumCircuit.barrier()
-        
-        # Z-Correction.
+        """Correction of the error after acquiring the syndrome."""
+
+        # Z-error correction.
         with self.quantumCircuit.if_test((self.classicalBits[0], 1)):
             with self.quantumCircuit.if_test((self.classicalBits[1], 0)):
                 self.quantumCircuit.z(self.dataQubits[0])
-        
+
         with self.quantumCircuit.if_test((self.classicalBits[0], 1)):
             with self.quantumCircuit.if_test((self.classicalBits[1], 1)):
                 self.quantumCircuit.z(self.dataQubits[3])
@@ -100,9 +109,9 @@ class ShorCode(StabilizerCode):
             with self.quantumCircuit.if_test((self.classicalBits[1], 1)):
                 self.quantumCircuit.z(self.dataQubits[6])
 
-        self.quantumCircuit.barrier()
+        # self.quantumCircuit.barrier()
 
-        # X-Correction.
+        # X-error correction.
         # Block 1.
         with self.quantumCircuit.if_test((self.classicalBits[2], 1)):
             with self.quantumCircuit.if_test((self.classicalBits[3], 0)):
@@ -116,7 +125,7 @@ class ShorCode(StabilizerCode):
             with self.quantumCircuit.if_test((self.classicalBits[3], 1)):
                 self.quantumCircuit.x(self.dataQubits[2])
 
-        self.quantumCircuit.barrier()
+        # self.quantumCircuit.barrier()
 
         # Block 2.
         with self.quantumCircuit.if_test((self.classicalBits[4], 1)):
@@ -130,8 +139,8 @@ class ShorCode(StabilizerCode):
         with self.quantumCircuit.if_test((self.classicalBits[4], 0)):
             with self.quantumCircuit.if_test((self.classicalBits[5], 1)):
                 self.quantumCircuit.x(self.dataQubits[5])
-        
-        self.quantumCircuit.barrier()
+
+        # self.quantumCircuit.barrier()
 
         # Block 3.
         with self.quantumCircuit.if_test((self.classicalBits[6], 1)):
@@ -147,4 +156,22 @@ class ShorCode(StabilizerCode):
                 self.quantumCircuit.x(self.dataQubits[8])
 
     def decode(self):
-        pass
+        """Decoding process of the 9-qubit Shor code."""
+
+        # Decoding for phase-flip code.
+        self.quantumCircuit.cx(self.dataQubits[6], self.dataQubits[8])
+        self.quantumCircuit.cx(self.dataQubits[6], self.dataQubits[7])
+
+        self.quantumCircuit.cx(self.dataQubits[3], self.dataQubits[5])
+        self.quantumCircuit.cx(self.dataQubits[3], self.dataQubits[4])
+
+        self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[2])
+        self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[1])
+
+        # Decoding for bit-flip code blocks.
+        self.quantumCircuit.h(self.dataQubits[6])
+        self.quantumCircuit.h(self.dataQubits[3])
+        self.quantumCircuit.h(self.dataQubits[0])
+
+        self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[6])
+        self.quantumCircuit.cx(self.dataQubits[0], self.dataQubits[3])

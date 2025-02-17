@@ -1,3 +1,7 @@
+"""
+Module containing an abstract class representing general stabilizer codes.
+"""
+
 from abc import ABC, abstractmethod
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, AncillaRegister
 

@@ -1,10 +1,30 @@
+"""
+This module provides visualization for quantum circuits and their 
+resulting statevectors.
+"""
+
 from qiskit_aer import AerSimulator
 from qiskit import transpile
 import qiskit.quantum_info as qi
 import matplotlib.pyplot as plt
 
+circuitStyle = {
+    # Changes custom instruction colors.
+    "displaycolor": {
+        "                Stabs             ": ("#EFBF04", "#000000"),
+        "                Corr              ": ("#305CDE", "#000000"),
+    },
+    # Changes classical wire style.
+    "creglinestyle": "--",
+}
+
 
 def visualize(quantumCircuit):
+    """
+    Simulates a quantum circuit, extracts its statevector, and visualizes both
+    the statevector and the circuit using Matplotlib.
+    """
+
     simulator = AerSimulator()
     compiledCircuit = transpile(quantumCircuit, simulator)
     result = simulator.run(compiledCircuit).result()
@@ -12,29 +32,28 @@ def visualize(quantumCircuit):
     # Get the statevector of output.
     statevector = result.get_statevector()
 
-    # Statevector with qubit labels formatted as Qiskit does for statevectors.
+    # Statevector string with qubit labels formatted as Qiskit does for statevectors.
     qubitLabels = [
         f"{register.name}_{i}"
         for register in quantumCircuit.qregs
-        for i in reversed(range(register.size))
+        for i in range(register.size)
     ]
     statevectorLabeled = "|" + "".join(qubitLabels[::-1]) + "\\rangle"
 
-    # Visualize the statevector in LaTeX.
+    # Visualize the statevector in LaTeX using Matplotlib.
     latexStatevector = qi.Statevector(statevector).draw(output="latex_source")
-    figure, axes = plt.subplots(figsize=(10, 0.5))
-    axes.text(
+    plt.figure(figsize=(12, 0.8))
+    plt.figtext(
         0.5,
         0.5,
-        f"Vector labels: ${statevectorLabeled}$. \n Output: ${latexStatevector}$.",
+        f"Vector labels: ${statevectorLabeled}$.\nOutput: ${latexStatevector}$.\nSyndrome: $(a_0, ..., a_7)$ with decoded qubit: $|q_0\\rangle$.",
         fontsize=12,
         va="center",
         ha="center",
     )
-    axes.axis("off")
+    plt.axis("off")
 
-    # Draw the quantum circuit.
-    quantumCircuit.draw(output="mpl")
+    # Visualize the circuit.
+    quantumCircuit.draw(output="mpl", style=circuitStyle, cregbundle=False, fold=-1)
 
-    # Show all figures.
     plt.show()
