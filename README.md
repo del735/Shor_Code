@@ -22,6 +22,4 @@ errors. The index ranges from 0 to 8, corresponding to data qubits q_0 to q_8,
 respectively.
 
 Note that single-qubit Y errors introduce a -i global phase. Since global 
-phases do not affect measurement probabilities, the logical information is   
-still recovered as intended.
-
+phases do not affect measurement probabilities, the logical information is still recovered as intended.
