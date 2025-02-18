@@ -1,24 +1,30 @@
-# Nine-Qubit Shor Code
-Implementation of the nine-qubit Shor quantum error correction code.
+# **Nine-Qubit Shor Code**  
+An implementation of the nine-qubit Shor quantum error correction code using Qiskit.
 
-This program uses Qiskit to construct and execute quantum circuits.
-Additionally, Qiskit-Aer is required to simulate quantum circuits and
-retrieve the statevector with explicit state saving. LaTeX is needed to
-represent mathematical expressions in circuits and Matplotlib figures.
+---
 
-## Required Dependencies
-- **[Qiskit](https://github.com/Qiskit/qiskit)** - For building and running quantum circuits.
-- **[Qiskit-Aer](https://github.com/Qiskit/qiskit-aer)** - For statevector simulation and measurement processing.
-- **[Matplotlib](https://github.com/matplotlib/matplotlib)** - For visualizing circuits and statevectors.
-- **[pylatexenc](https://github.com/phfaist/pylatexenc)** - Needed for rendering mathematical expressions in Mathplotlib using Python. 
+## **Required Dependencies**  
 
-Dependencies can be installed through pip using:
-`pip install qiskit`
-`pip install qiskit-aer`
-`pip install matplotlib`
-`pip install pylatexenc`
+The following packages are required to run this program:  
+### **Quantum Computing & Simulation**  
+- **[Qiskit](https://github.com/Qiskit/qiskit)** – For building and running quantum circuits.  
+- **[Qiskit-Aer](https://github.com/Qiskit/qiskit-aer)** – To retrieve the statevector of circuits that include measurement operations.
+### **Visualization & LaTeX Support**  
+- **[Matplotlib](https://github.com/matplotlib/matplotlib)** – Used for visualizing circuits and quantum states.  
+- **[pylatexenc](https://github.com/phfaist/pylatexenc)** – Required for rendering mathematical expressions in Matplotlib.  
 
-It is [recommended](https://docs.quantum.ibm.com/guides/install-qiskit) to use a Python virtual environment to separate Qiskit from other applications.
+The required dependencies can be installed through `pip`:  
+
+```bash
+pip install qiskit 
+pip install qiskit-aer 
+pip install matplotlib 
+pip install pylatexenc
+```
+
+It is [recommended](https://docs.quantum.ibm.com/guides/install-qiskit) to use a Python virtual environment to prevent problems between Qiskit and other applications.
+
+---
 
 ## Usage
 Execute `run.py` to start the program.
