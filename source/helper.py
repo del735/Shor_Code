@@ -40,7 +40,7 @@ def visualize(quantumCircuit):
     ]
     statevectorLabeled = "|" + "".join(qubitLabels[::-1]) + "\\rangle"
 
-    # Visualize the statevector in LaTeX using Matplotlib.
+    # For visualizing the statevector in LaTeX using Matplotlib.
     latexStatevector = qi.Statevector(statevector).draw(output="latex_source")
     plt.figure(figsize=(12, 0.8))
     plt.figtext(
@@ -53,7 +53,7 @@ def visualize(quantumCircuit):
     )
     plt.axis("off")
 
-    # Visualize the circuit.
+    # For visualizing the circuit.
     quantumCircuit.draw(output="mpl", style=circuitStyle, cregbundle=False, fold=-1)
 
     plt.show()
