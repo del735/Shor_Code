@@ -27,6 +27,6 @@ still recovered as intended.
 
 To change the input q_0, which is set to |1⟩ by default, modify
 `self.quantumCircuit.x(self.dataQubits[0])` in the `__init__` method. The decoded
-qubit q_0 will match its input, despite single-qubit error. Measurement behavior 
+qubit q_0 will match its input despite single-qubit error. Measurement behavior 
 remains consistent as well.
 
