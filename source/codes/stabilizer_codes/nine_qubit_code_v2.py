@@ -54,7 +54,7 @@ class ShorCode(StabilizerCode):
         single-qubit x, y, and z errors.
         """
 
-        self.quantumCircuit.x(self.dataQubits[0])
+        self.quantumCircuit.z(self.dataQubits[0])
 
     def measureSyndrome(self):
         """Measurement of stabilizers to generate the error syndrome."""
