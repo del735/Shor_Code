@@ -7,9 +7,9 @@ retrieve the statevector with explicit state saving. LaTeX is needed to
 represent mathematical expressions in circuits and Matplotlib figures.
 
 ## Required Dependencies
-- **Qiskit** - For building and running quantum circuits.
-- **Qiskit-Aer** - For statevector simulation and measurement processing.
-- **Matplotlib** - For visualizing circuits and statevectors.
+- **[Qiskit](https://github.com/Qiskit/qiskit)** - For building and running quantum circuits.
+- **[Qiskit-Aer](https://github.com/Qiskit/qiskit-aer)** - For statevector simulation and measurement processing.
+- **[Matplotlib](https://github.com/matplotlib/matplotlib)** - For visualizing circuits and statevectors.
 ## Further Requirement
 - **LaTeX** - Needed for rendering mathematical expressions.
 ## Usage
