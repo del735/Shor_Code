@@ -10,8 +10,16 @@ represent mathematical expressions in circuits and Matplotlib figures.
 - **[Qiskit](https://github.com/Qiskit/qiskit)** - For building and running quantum circuits.
 - **[Qiskit-Aer](https://github.com/Qiskit/qiskit-aer)** - For statevector simulation and measurement processing.
 - **[Matplotlib](https://github.com/matplotlib/matplotlib)** - For visualizing circuits and statevectors.
-## Further Requirement
-- **LaTeX** - Needed for rendering mathematical expressions.
+- **[pylatexenc](https://github.com/phfaist/pylatexenc)** - Needed for rendering mathematical expressions in Mathplotlib using Python. 
+
+Dependencies can be installed through pip using:
+`pip install qiskit`
+`pip install qiskit-aer`
+`pip install matplotlib`
+`pip install pylatexenc`
+
+It is [recommended](https://docs.quantum.ibm.com/guides/install-qiskit) to use a Python virtual environment to separate Qiskit from other applications.
+
 ## Usage
 Execute `run.py` to start the program.
 
