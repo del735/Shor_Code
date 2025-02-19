@@ -21,6 +21,7 @@ import helper
 def main():
     """Start the error-correction process."""
 
+    # Run only when Qiskit 2 releases and 'c_if' supports is removed:
     # shorCode = nine_qubit_code_v1.ShorCode()
     # helper.visualize(shorCode.quantumCircuit)
 

@@ -7,13 +7,17 @@ from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, AncillaRe
 
 
 class StabilizerCode(ABC):
-    def __init__(self, numDataQubits, numAncillaQubits, numClassicalBits):
-        self.dataQubits = QuantumRegister(numDataQubits, "q")
+    def __init__(self, numphysQubits, numAncillaQubits, numClassicalBits):
+        self.physQubits = QuantumRegister(numphysQubits, "q")
         self.ancillaQubits = AncillaRegister(numAncillaQubits, "a")
         self.classicalBits = ClassicalRegister(numClassicalBits, "c")
         self.quantumCircuit = QuantumCircuit(
-            self.dataQubits, self.ancillaQubits, self.classicalBits
+            self.physQubits, self.ancillaQubits, self.classicalBits
         )
+
+    @abstractmethod
+    def generateCircuit(self):
+        raise NotImplementedError()
 
     @abstractmethod
     def encode(self):

@@ -46,7 +46,7 @@ def visualize(quantumCircuit):
     plt.figtext(
         0.5,
         0.5,
-        f"Vector labels: ${statevectorLabeled}$.\nOutput: ${latexStatevector}$.\nSyndrome: $(a_0, ..., a_7)$ with decoded qubit: $|q_0\\rangle$.",
+        f"Vector labels: ${statevectorLabeled}$.\nCircuit output: ${latexStatevector}$.\nSyndrome: $(a_0, ..., a_7)$ with decoded qubit: $|q_0\\rangle$.",
         fontsize=12,
         va="center",
         ha="center",
@@ -54,6 +54,8 @@ def visualize(quantumCircuit):
     plt.axis("off")
 
     # For visualizing the circuit.
-    quantumCircuit.draw(output="mpl", style=circuitStyle, cregbundle=False, fold=-1)
+    quantumCircuit.draw(
+        output="mpl", plot_barriers=False, style=circuitStyle, cregbundle=False, fold=-1
+    )
 
     plt.show()
