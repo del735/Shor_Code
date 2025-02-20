@@ -43,3 +43,11 @@ To change the input $q_0$, which is set to $|1\rangle$ by default, modify
 `self.quantumCircuit.x(self.physQubits[0])` in the `generateCircuit` method. The decoded
 qubit $q_0$ will match its input despite single-qubit error. Measurement behavior 
 remains consistent as well.
+
+---
+
+## Output Example
+For input $H|0\rangle$, and a single-qubit $Y$-error on $q_4$, the output below illustrates successful error correction:
+
+![Screenshot from 2025-02-19 20-46-20](https://github.com/user-attachments/assets/76b32e9a-ae1a-4f6b-870d-c31b4bcfc513)
+
